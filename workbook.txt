@@ -1,0 +1,43 @@
+run_analysis - Main function of the project. Requests the folder where the Samsung data can be found as an argument, by default "UCI HAR Dataset"
+Find_Files <- Support function to list the paths to the required data files, stored in the Samsung data folder
+Files <- Output of "Find_Files" function. List of files to be used for analysis
+Dataset <- Function which performs the merging of the datasets "train" and "test" 
+Data_File <- Output of "Dataset" function. Data frame which is the result of merging the data from "train" and "test" datasets.
+Tidy_Dataset <- Data frame which is the result of grouping the data by Subject/Activity and obtaining the mean of each entry.
+
+In "Find_Files" function, all files are searched within "run_analysis" argument:
+  Find_Features <- Obtain the find the exact match to the file "features.txt" and outputs its path. Includes "recursive = TRUE" to find the subpath if needed.
+  Activity_labels <- Obtain the find that the file that matches "labels.txt" at the end of the path and outputs its path. Includes "recursive = TRUE" to find the subpath if needed.
+  Test_Subject <- Obtain the find the exact match to the file "subject_test.txt" and outputs its path. Includes "recursive = TRUE" to find the subpath if needed.
+  Test_X <- Obtain the find the match to the file "X_test.txt" at any point, and outputs its path. Includes "recursive = TRUE" to find the subpath if needed.
+  Test_Y <- Obtain the find the match to the file "Y_test.txt" at any point, and outputs its path. Includes "recursive = TRUE" to find the subpath if needed.
+  Train_Subject <- Obtain the find the exact match to the file "subject_train.txt" and outputs its path. Includes "recursive = TRUE" to find the subpath if needed.
+  Train_X <- Obtain the find the match to the file "X_train.txt" at any point, and outputs its path. Includes "recursive = TRUE" to find the subpath if needed.
+  Train_Y <- Obtain the find the match to the file "Y_test.txt" at any point, and outputs its path. Includes "recursive = TRUE" to find the subpath if needed.
+  File_vector <- organizes the sequence in which each file will be read. 
+	The sequence is as follows -> Find_Features, Activity_labels, Train_Subject, Train_X, Train_Y, Test_Subject, Test_X, Test_Y
+  Files <- Output table where File_Vector is stored
+
+In "Data function", all files refer to the argument "Files" created by "Find_Files" function:
+  Features_Table <- read data from file "features.txt"
+  Features <- 
+	Groups the features obtained from "features.txt" and creates a vector with "Subject" and "Activity".
+	Used to rename Train_Data and Test_Data data frame collums to allow merging using "rbind" function.
+  subjects1 <- obtained subjects included in Train data from "subject_train.txt"
+  df1 <- reads the train data from axis X and creates a data frame with the data from files "X_train.txt" 
+  df2 <- reads the train data from axis Y and creates a data frame with the data from files "Y_train.txt" 
+  Train_Data <- creates a data frame for all train data, combining the information from "subjects1", "df1" and "df2"
+  subjects2 <- obtained subjects included in Train data from "subject_test.txt"
+  df3 <- reads the test data from axis X and creates a data frame with the data from files "X_test.txt"
+  df4 <- reads the test data from axis Y and creates a data frame with the data from files "Y_test.txt"
+  Test_Data <- creates a data frame for all test data, combining the information from "subjects2", "df3" and "df4"
+  Data_set <- Merge of Train_Data and Test_Data data frames by row
+  Filter_set <- Filter of "Data_set" data frame, by all collums in that same data frame which include "mean" or "std" in its collumn name, to obtain the mean and the standard deviation variables.
+  ID_Set <- Variable to store the information from "Data_Set" first 2 collumns relative to "Subject" and "Activity"
+  Data_set <- Data frame in which only mean and standard deviation collumns are stored. "Subject" and "Activity" are therefore kept in the first two collums to be used in the output data frame.
+  Act_Labels <- read data from file "labels.txt"
+
+
+
+
+
